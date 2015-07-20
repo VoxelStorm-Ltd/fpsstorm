@@ -47,6 +47,16 @@ void fpsstorm::wait_fps_cap() {
   fps_cap_next_tick_start = std::chrono::high_resolution_clock::now() + fps_cap_timestep;
 }
 
+bool fpsstorm::time_for_next_frame() {
+  /// Returns whether it's time to draw the next frame yet, without blocking like wait_fps_cap does
+  if(std::chrono::high_resolution_clock::now() >= fps_cap_next_tick_start) {
+    fps_cap_next_tick_start = std::chrono::high_resolution_clock::now() + fps_cap_timestep;
+    return true;
+  } else {
+    return false;
+  }
+}
+
 float fpsstorm::get_fps() const {
   /// Last measured frames per second reading
   return fps;
@@ -83,8 +93,8 @@ void fpsstorm::monitor() {
     } else {
       #ifndef NDEBUG
         std::cout << "FPSStorm: Warning: " << fps << "FPS, " <<
-                     static_cast<int>((1.0f - (static_cast<double>(fps) / fps_cap   )) * 100) << "% below cap, " <<
-                     static_cast<int>((1.0f - (static_cast<double>(fps) / fps_target)) * 100) << "% below target!" << std::endl;
+                     static_cast<int>((1.0 - (static_cast<double>(fps) / fps_cap   )) * 100) << "% below cap, " <<
+                     static_cast<int>((1.0 - (static_cast<double>(fps) / fps_target)) * 100) << "% below target!" << std::endl;
       #endif // NDEBUG
     }
 

@@ -10,7 +10,13 @@ fpsstorm::fpsstorm() {
 
 fpsstorm::~fpsstorm() {
   /// Default destructor
-  std::cout << "FPSStorm: Stats: " << get_stats() << std::endl;
+  #ifndef DEBUG_FPS
+    if(fps_average_count != 0) {
+  #endif // DEBUG_FPS
+      std::cout << "FPSStorm: Stats: " << get_stats() << std::endl;
+  #ifndef DEBUG_FPS
+    }
+  #endif // DEBUG_FPS
 }
 
 void fpsstorm::reset() {
@@ -20,7 +26,8 @@ void fpsstorm::reset() {
   fps = 0;
   fps_on_target = true;
   frames_last_interval = 0;
-  fps_cap_next_tick_start = std::chrono::high_resolution_clock::now() + fps_cap_timestep;
+  fps_cap_next_tick_start    = std::chrono::high_resolution_clock::now() + fps_cap_timestep;
+  fps_update_next_tick_start = std::chrono::high_resolution_clock::now() + fps_report_timestep;
 }
 
 double fpsstorm::get_fps_cap() const {
@@ -65,20 +72,20 @@ void fpsstorm::monitor() {
     // update lifetime scores
     fps_max = std::max(fps_max, fps);
     fps_min = std::min(fps_min, fps);
-    fps_average_total += fps;
+    fps_average_total += static_cast<double>(fps);
     ++fps_average_count;
     fps_average = fps_average_total / static_cast<double>(fps_average_count);
     if(fps_on_target) {
       ++fps_on_target_count;
-      #ifndef NDEBUG
+      #ifdef DEBUG_FPS
         std::cout << "FPSStorm: DEBUG: " << fps << "FPS (on target)" << std::endl;
-      #endif // NDEBUG
+      #endif // DEBUG_FPS
     } else {
       #ifndef NDEBUG
         std::cout << "FPSStorm: Warning: " << fps << "FPS, " <<
-                     (1.0f - (fps / fps_cap)) * 100 << "% below cap, " <<
-                     (1.0f - (fps / fps_target)) * 100 << "% below target!" << std::endl;
-      #endif
+                     static_cast<int>((1.0f - (static_cast<double>(fps) / fps_cap   )) * 100) << "% below cap, " <<
+                     static_cast<int>((1.0f - (static_cast<double>(fps) / fps_target)) * 100) << "% below target!" << std::endl;
+      #endif // NDEBUG
     }
 
     frames_last_interval = 0;

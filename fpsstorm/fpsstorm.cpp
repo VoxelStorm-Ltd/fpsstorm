@@ -93,8 +93,8 @@ void fpsstorm::monitor() {
     } else {
       #ifndef NDEBUG
         std::cout << "FPSStorm: Warning: " << fps << "FPS, " <<
-                     static_cast<int>((1.0 - (static_cast<double>(fps) / fps_cap   )) * 100) << "% below cap, " <<
-                     static_cast<int>((1.0 - (static_cast<double>(fps) / fps_target)) * 100) << "% below target!" << std::endl;
+                     static_cast<int>((1.0 - (static_cast<double>(fps) / fps_cap)) * 100) << "% below cap, " <<
+                     static_cast<int>((1.0 - (static_cast<double>(fps) / static_cast<double>(fps_target))) * 100) << "% below target!" << std::endl;
       #endif // NDEBUG
     }
 

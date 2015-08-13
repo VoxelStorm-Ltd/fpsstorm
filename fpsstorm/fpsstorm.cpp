@@ -76,7 +76,7 @@ void fpsstorm::monitor() {
   /// Monitor the framerate and report if we drop below
   ++frames_last_interval;
   if(std::chrono::high_resolution_clock::now() > fps_update_next_tick_start) {
-    fps = frames_last_interval / fps_report_interval;
+    fps = static_cast<float>(frames_last_interval / fps_report_interval);
     fps_on_target = fps >= fps_target;
 
     // update lifetime scores

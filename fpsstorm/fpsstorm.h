@@ -19,7 +19,7 @@ private:
 
   // lifetime stats
   float        fps_max             = 0.0f;                                      // lowest observed fps
-  float        fps_min             = fps_cap;                                   // highest observed fps
+  float        fps_min             = static_cast<float>(fps_cap);               // highest observed fps
   double       fps_average_total   = 0.0;                                       // running total of all fps measurements
   unsigned int fps_average_count   = 0;                                         // running count of fps measurements
   unsigned int fps_on_target_count = 0;                                         // running count of entries on target

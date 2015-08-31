@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <string>
+#include <functional>
 
 class fpsstorm {
 private:
@@ -26,6 +27,9 @@ private:
   double       fps_average         = 0.0;                                       // cached fps lifetime average
 
 public:
+  std::function<void()> callback_on_target    = []{};                           // callback called when the monitor reports we're on target
+  std::function<void()> callback_below_target = []{};                           // callback for when the monitor says we're under target
+
   fpsstorm();
   ~fpsstorm();
 

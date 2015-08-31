@@ -90,12 +90,14 @@ void fpsstorm::monitor() {
       #ifdef DEBUG_FPS
         std::cout << "FPSStorm: DEBUG: " << fps << "FPS (on target)" << std::endl;
       #endif // DEBUG_FPS
+      callback_on_target();
     } else {
       #ifndef NDEBUG
         std::cout << "FPSStorm: Warning: " << fps << "FPS, " <<
                      static_cast<int>((1.0 - (static_cast<double>(fps) / fps_cap)) * 100) << "% below cap, " <<
                      static_cast<int>((1.0 - (static_cast<double>(fps) / static_cast<double>(fps_target))) * 100) << "% below target!" << std::endl;
       #endif // NDEBUG
+      callback_below_target();
     }
 
     frames_last_interval = 0;

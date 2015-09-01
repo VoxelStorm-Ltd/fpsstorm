@@ -87,10 +87,17 @@ void fpsstorm::monitor() {
     fps_average = fps_average_total / static_cast<double>(fps_average_count);
     if(fps_on_target) {
       ++fps_on_target_count;
-      #ifdef DEBUG_FPS
-        std::cout << "FPSStorm: DEBUG: " << fps << "FPS (on target)" << std::endl;
-      #endif // DEBUG_FPS
-      callback_on_target();
+      if(fps > fps_target - 1.0f) {
+        #ifdef DEBUG_FPS
+          std::cout << "FPSStorm: DEBUG: " << fps << "FPS (above target)" << std::endl;
+        #endif // DEBUG_FPS
+        callback_above_target();
+      } else {
+        #ifdef DEBUG_FPS
+          std::cout << "FPSStorm: DEBUG: " << fps << "FPS (on target)" << std::endl;
+        #endif // DEBUG_FPS
+        callback_on_target();
+      }
     } else {
       #ifndef NDEBUG
         std::cout << "FPSStorm: Warning: " << fps << "FPS, " <<

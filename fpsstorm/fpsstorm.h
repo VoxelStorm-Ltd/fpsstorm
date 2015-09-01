@@ -29,6 +29,7 @@ private:
 public:
   std::function<void()> callback_on_target    = []{};                           // callback called when the monitor reports we're on target
   std::function<void()> callback_below_target = []{};                           // callback for when the monitor says we're under target
+  std::function<void()> callback_above_target = []{};                           // callback for when the monitor is on the framerate limiter
 
   fpsstorm();
   ~fpsstorm();

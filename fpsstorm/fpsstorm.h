@@ -39,13 +39,13 @@ public:
 
   void reset();
 
-  double get_fps_cap() const;
+  double get_fps_cap() const __attribute__((__const__));
   void set_fps_cap(double new_max);
   void wait_fps_cap();
   bool time_for_next_frame();
 
-  float get_fps() const;
-  bool get_fps_on_target() const;
+  float get_fps() const __attribute__((__const__));
+  bool get_fps_on_target() const __attribute__((__const__));
   void set_fps_report_interval(double new_interval);
   void monitor();
 

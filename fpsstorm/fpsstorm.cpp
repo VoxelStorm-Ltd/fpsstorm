@@ -1,4 +1,3 @@
-        #ifdef DEBUG_FPS
 #include "fpsstorm.h"
 #include <iostream>
 #include <thread>
@@ -90,40 +89,6 @@ void fpsstorm::monitor() {
       ++fps_on_target_count;
       if(fps > fps_target - 1.0f) {
         #ifdef DEBUG_FPS
-          std::cout << "FPSStorm: DEBUG: " << fps << "FPS (above target)" << std::endl;
-        #endif // DEBUG_FPS
-        callback_above_target();
-      } else {
-        #ifdef DEBUG_FPS
-          std::cout << "FPSStorm: DEBUG: " << fps << "FPS (on target)" << std::endl;
-        #endif // DEBUG_FPS
-        callback_on_target();
-      }
-    } else {
-      #ifndef NDEBUG
-        std::cout << "FPSStorm: Warning: " << fps << "FPS, " <<
-                     static_cast<int>((1.0 - (static_cast<double>(fps) / fps_cap)) * 100) << "% below cap, " <<
-                     static_cast<int>((1.0 - (static_cast<double>(fps) / static_cast<double>(fps_target))) * 100) << "% below target!" << std::endl;
-      #endif // NDEBUG
-      callback_below_target();
-    }
-
-    frames_last_interval = 0;
-    fps_update_next_tick_start = std::chrono::high_resolution_clock::now() + fps_report_timestep;
-  }
-}
-
-std::string const fpsstorm::get_stats() const {
-  /// Output a string with the lifetime stats of this run so far
-  std::stringstream ss;
-  if(fps_average_count == 0) {
-    ss << "No stats collected this run.";
-  } else {
-    ss << fps_max << " max, " << fps_min << " min, " << fps_average << " avg, " << fps_on_target_count << "/" << fps_average_count << " on target (" << (fps_on_target_count * 100) / fps_average_count << "%)";
-  }
-  return ss.str();
-
-}
           std::cout << "FPSStorm: DEBUG: " << fps << "FPS (above target)" << std::endl;
         #endif // DEBUG_FPS
         callback_above_target();

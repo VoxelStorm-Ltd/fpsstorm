@@ -41,6 +41,7 @@ public:
 
   double get_fps_cap() const __attribute__((__const__));
   void set_fps_cap(double new_max);
+  void set_fps_target(float new_target);
   void wait_fps_cap();
   bool time_for_next_frame();
 

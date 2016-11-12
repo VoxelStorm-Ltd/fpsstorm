@@ -39,6 +39,14 @@ void fpsstorm::set_fps_cap(double new_max) {
   fps_cap = new_max;
   fps_cap_timestep = std::chrono::milliseconds(static_cast<unsigned int>(1000 / fps_cap) - 1); // -1 to go a bit over;
   std::cout << "FPSStorm: Framerate now capped to " << fps_cap << "FPS (" << 1.0 / fps_cap << " seconds)." << std::endl;
+  if(fps_cap < static_cast<double>(fps_target)) {
+    set_fps_target(static_cast<float>(fps_cap));
+  }
+}
+void fpsstorm::set_fps_target(float new_target) {
+  /// Update the new FPS target
+  fps_target = new_target;
+  std::cout << "FPSStorm: Framerate target now " << new_target << "FPS (" << 1.0f / new_target << " seconds)." << std::endl;
 }
 
 void fpsstorm::wait_fps_cap() {

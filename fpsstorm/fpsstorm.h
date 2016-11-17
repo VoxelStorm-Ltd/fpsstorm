@@ -16,8 +16,10 @@ private:
   double fps_report_interval = 4.0;                                             // how many seconds between reporting frames per second performance
   std::chrono::duration<double> fps_cap_timestep;
   std::chrono::duration<double> fps_report_timestep;
-  std::chrono::time_point<std::chrono::high_resolution_clock, std::chrono::duration<double>> fps_cap_next_tick_start = std::chrono::high_resolution_clock::now();
+  std::chrono::time_point<std::chrono::high_resolution_clock, std::chrono::duration<double>> fps_cap_next_tick_start    = std::chrono::high_resolution_clock::now();
   std::chrono::time_point<std::chrono::high_resolution_clock, std::chrono::duration<double>> fps_update_next_tick_start = std::chrono::high_resolution_clock::now();
+  //std::chrono::high_resolution_clock::time_point fps_cap_next_tick_start    = std::chrono::high_resolution_clock::now();
+  //std::chrono::high_resolution_clock::time_point fps_update_next_tick_start = std::chrono::high_resolution_clock::now();
 
   double       fps_average          = 0.0;                                      // cached fps lifetime average
   double       fps_average_total    = 0.0;                                      // running total of all fps measurements
@@ -46,6 +48,7 @@ public:
   bool time_for_next_frame();
 
   float get_fps() const __attribute__((__const__));
+  std::chrono::duration<double> get_fps_cap_timestep() const __attribute__((__pure__));
   bool get_fps_on_target() const __attribute__((__const__));
   void set_fps_report_interval(double new_interval);
   void monitor();

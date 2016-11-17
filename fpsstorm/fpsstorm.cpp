@@ -69,6 +69,10 @@ float fpsstorm::get_fps() const {
   /// Last measured frames per second reading
   return fps;
 }
+std::chrono::duration<double> fpsstorm::get_fps_cap_timestep() const {
+  /// The currently set timestep duration
+  return fps_cap_timestep;
+}
 bool fpsstorm::get_fps_on_target() const {
   /// Are we currently on target for monitoring FPS?
   return fps_on_target;

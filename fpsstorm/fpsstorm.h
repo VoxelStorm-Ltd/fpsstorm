@@ -1,5 +1,4 @@
-#ifndef FPSSTORM_H_INCLUDED
-#define FPSSTORM_H_INCLUDED
+#pragma once
 
 #include <chrono>
 #include <string>
@@ -55,5 +54,3 @@ public:
 
   std::string const get_stats() const;
 };
-
-#endif // FPSSTORM_H_INCLUDED

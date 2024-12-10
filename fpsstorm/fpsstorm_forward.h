@@ -1,6 +1,3 @@
-#ifndef FPSSTORM_FORWARD_H_INCLUDED
-#define FPSSTORM_FORWARD_H_INCLUDED
+#pragma once
 
 class fpsstorm;
-
-#endif // FPSSTORM_FORWARD_H_INCLUDED
